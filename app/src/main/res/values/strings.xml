@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Wifi Distance and Signal Strength</string>
+    <string name="okay">Okay</string>
+    <string name="done">Done</string>
 </resources>
