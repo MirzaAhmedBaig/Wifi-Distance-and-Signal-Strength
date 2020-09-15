@@ -22,6 +22,7 @@ import com.example.signalstrength.adapter.DeviceAdapter
 import com.example.signalstrength.datamodels.DeviceInfo
 import com.example.signalstrength.dialogs.AlertDialog
 import com.example.signalstrength.dialogs.MenuDialog
+import com.example.signalstrength.extensions.calculateDistance
 import com.example.signalstrength.extensions.convetToFeet
 import com.example.signalstrength.extensions.getDistanceInMeter
 import com.example.signalstrength.extensions.round
@@ -153,13 +154,14 @@ class ListActivity : AppCompatActivity() {
             val deviceRssi = wifiManager.connectionInfo.rssi
 
             val distance = getDistanceInMeter(rssi.toDouble(), deviceRssi)
+            val newDi = calculateDistance(rssi.toDouble(),wifiManager.connectionInfo.frequency.toDouble())
             val newDistance =
                 if (AppPreferences(this).getUnit() == "M") "${round(distance, 2)}m" else "${round(
                     convetToFeet(
                         distance
                     ), 2
                 )}ft"
-            Log.d(TAG, "SSID : ${it.SSID}  RSSI : $rssi Range : $range Distance $newDistance ")
+            Log.d(TAG, "SSID : ${it.SSID}  RSSI : $rssi Range : $range Distance $newDistance $newDi")
             deviceList.add(
                 DeviceInfo(
                     it.SSID,

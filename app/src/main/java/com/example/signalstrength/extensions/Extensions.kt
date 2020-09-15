@@ -1,5 +1,7 @@
 package com.example.signalstrength.extensions
 
+import kotlin.math.abs
+import kotlin.math.log10
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
@@ -11,6 +13,15 @@ fun getDistanceInMeter(rssi: Double, txPower: Int): Double {
         ratio.pow(10.0)
     else
         0.89976 * ratio.pow(7.7095) + 0.111
+}
+
+fun calculateDistance(
+    signalLevelInDb: Double,
+    freqInMHz: Double
+): Double {
+    val exp =
+        (27.55 - 20 * log10(freqInMHz) + abs(signalLevelInDb)) / 20.0
+    return 10.0.pow(exp)
 }
 
 fun convetToFeet(distance: Double): Double {
